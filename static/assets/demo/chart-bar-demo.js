@@ -8,7 +8,7 @@ var chartData = {
   datasets: [{
     data: JSON.parse(Bjinja2MValues),
     label: jinja2MLegend,
-    backgroundColor: "#50164F63",
+    backgroundColor: "#c2c0c0",
     pointHoverRadius: 5,
     pointHoverBackgroundColor: "#164F63",
     pointRadius: 1,
@@ -17,7 +17,7 @@ var chartData = {
     {
       data: JSON.parse(Bjinja1MValues),
       label: jinja1MLegend,
-      backgroundColor: "#50164F63",
+      backgroundColor: "#8bc7f0",
       pointHoverRadius: 5,
       pointHoverBackgroundColor: "#164F63",
       pointRadius: 1,
@@ -26,7 +26,7 @@ var chartData = {
     {
       data: JSON.parse(Bjinja0MValues),
       label: jinja0MLegend,
-      backgroundColor: "#50164F63",
+      backgroundColor: "#ff9eb2",
       pointHoverRadius: 5,
       pointHoverBackgroundColor: "#164F63",
       pointRadius: 1,

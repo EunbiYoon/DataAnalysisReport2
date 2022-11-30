@@ -8,32 +8,33 @@ var chartData = {
   datasets: [{
     data: JSON.parse(Ajinja2MValues),
     label: jinja2MLegend,
-    backgroundColor: "#50164F63",
+    borderColor:"grey",
+    backgroundColor:['rgba(122,122,122,0.2)'],
     pointHoverRadius: 5,
-    pointHoverBackgroundColor: "#164F63",
+    pointHoverBackgroundColor: "grey",
     pointRadius: 1,
     pointHitRadius: 10
     },
     {
       data: JSON.parse(Ajinja1MValues),
       label: jinja1MLegend,
-      backgroundColor: "#50164F63",
+      backgroundColor:['rgba(86,176,238,0.2)'],
+      borderColor:"#42A7EC",
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: "#164F63",
+      pointHoverBackgroundColor: "#42A7EC",
       pointRadius: 1,
       pointHitRadius: 10
     },
     {
       data: JSON.parse(Ajinja0MValues),
       label: jinja0MLegend,
-      backgroundColor: "#50164F63",
+      borderColor:"#FF6E8C",
+      backgroundColor:['rgba(227,98,125,0.2)'],
       pointHoverRadius: 5,
-      pointHoverBackgroundColor: "#164F63",
+      pointHoverBackgroundColor: "red",
       pointRadius: 1,
       pointHitRadius: 10
-    }
-
-  ]
+    }]
 };
 
 console.log(jinjaLabels);
@@ -50,4 +51,16 @@ var ctx = document.getElementById("areachart").getContext("2d");
 var areachart = new Chart(ctx, {
   type: 'line',
   data: chartData,
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'category'
+      }],
+      y: {
+        type: 'logarithmic',
+        beginAtZero: true
+      }
+    }
+  }
+  
 });

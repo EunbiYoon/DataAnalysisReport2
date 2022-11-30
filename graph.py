@@ -145,7 +145,7 @@ for i in range(len(svc_data)):
 today=date.today()
 YearNmonth=pd.DataFrame()
 for i in range(12):
-    k=today-timedelta(days=30*i)
+    k=today-timedelta(days=32*i)
     YearNmonth.at[i,"Month"]=k.strftime('%Y-%m')
 
 #1년 데이터 소팅하기 -- pivot table 이용하기
@@ -162,6 +162,7 @@ YearSVC10M=pd.DataFrame()
 YearSVC11M=pd.DataFrame()
 YearSVC12M=pd.DataFrame()
 
+
 YearSVC1M=svc_data[svc_data['Report_Date'].str.contains(YearNmonth.at[0,"Month"])]
 YearSVC2M=svc_data[svc_data['Report_Date'].str.contains(YearNmonth.at[1,"Month"])]
 YearSVC3M=svc_data[svc_data['Report_Date'].str.contains(YearNmonth.at[2,"Month"])]
@@ -177,8 +178,7 @@ YearSVC12M=svc_data[svc_data['Report_Date'].str.contains(YearNmonth.at[11,"Month
 
 YearSVCTotal=pd.concat([YearSVC1M,YearSVC2M,YearSVC3M,YearSVC4M,YearSVC5M,YearSVC6M,
                         YearSVC7M,YearSVC8M,YearSVC9M,YearSVC10M,YearSVC11M,YearSVC12M])
-
-
+                        
 pivot_table = pd.crosstab(index=YearSVCTotal.Report_Day, columns=YearSVCTotal.Report_Month, margins=False)
 
 #Pivot_table 칼럼과 인덱스 정수로 변환
@@ -307,7 +307,7 @@ ppm=ppm.astype(int)
 Table=pd.concat([ea,ppm],axis=1)
 Plabels=Table.index[:-1].to_list()
 Pvalues=Table['PPM'][:-1].to_list() #total 제외
-print(Pvalues)
+
 
 ##########################그래프 만들기 1번째 축
 # 데이터 레이블 이름 완성하기
@@ -315,9 +315,9 @@ print(Pvalues)
 
 today=date.today()
 date0M_name=today.strftime('%Y.%m')
-date1M_name=today-timedelta(weeks=4)
+date1M_name=today-timedelta(weeks=5) # 어떤 달은 한달이 4주가 아닌 점을 고려
 date1M_name=date1M_name.strftime('%Y.%m')
-date2M_name=today-timedelta(weeks=8)
+date2M_name=today-timedelta(weeks=10) # 어떤 달은 한달이 4주가 아닌 점을 고려
 date2M_name=date2M_name.strftime('%Y.%m')
 
 # 그래프 그리기 위해 데이터 합치기
@@ -342,5 +342,18 @@ Bvalues1M=Salesresult['Sales_'+date1M_name].fillna(0).to_list()
 Bvalues0M=Salesresult['Sales_'+date0M_name].fillna(0).to_list()
 
 
+svc_data.index=range(1,len(svc_data)+1)
+svc_data.columns=["Symptom","Repair_No","Serial_No","Report_Date"]
 
+min_svc_data=svc_data.loc[svc_data['Report_Date'].str.contains(legend0M)]
+min_svc_data.index=range(1,len(min_svc_data)+1)
 
+svc_data_html=svc_data.to_html()
+svc_data_html=svc_data_html.replace('border="1" class="dataframe"','id="datatablesSimple"' )
+svc_data_html=svc_data_html.replace('<tr style="text-align: right;">','<tr>')
+svc_data_html=svc_data_html.replace('<th></th>','<th>No</th>')
+
+min_data_html=min_svc_data.to_html()
+min_data_html=min_data_html.replace('border="1" class="dataframe"','id="datatablesSimple"' )
+min_data_html=min_data_html.replace('<tr style="text-align: right;">','<tr>')
+min_data_html=min_data_html.replace('<th></th>','<th>No</th>')
